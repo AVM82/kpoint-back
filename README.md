@@ -46,3 +46,11 @@ Feedback1
 
 Ну і як фініш (в бізнес плані є фінальні етапи і строки) приклади вкладень.
 Тоді не тільки айтішники а і смертні зможуть розуміти і приймати участь ;)
+
+
+Environment variables:
+`DB_URL` - PostgreSQL coinnection url
+`DB_USERNAME` - PostgreSQL username
+`DB_PASSWORD` - PostgreSQL password
+`SERVER_PORT` - server port (5001)
+

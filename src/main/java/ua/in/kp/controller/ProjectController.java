@@ -3,6 +3,7 @@ package ua.in.kp.controller;
 import jakarta.validation.Valid;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,22 +17,17 @@ import ua.in.kp.service.ProjectService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/projects")
+@RequestMapping("/api/projects")
 public class ProjectController {
 
   private final ProjectService projectService;
-  private final ProjectMapper projectMapper;
 
     @PostMapping("/")
     public ResponseEntity<ProjectDto> createProject(@Valid @RequestBody ProjectDto createdProject, UriComponentsBuilder ucb) {
 
         ProjectEntity newProject = projectService.createProject(createdProject);
 
-        URI locationOfNewProject = ucb
-                .path("projects/{id}")
-                .buildAndExpand(newProject.getProjectId())
-                .toUri();
-        return ResponseEntity.created(locationOfNewProject).body(projectMapper.projectEntityToProjectDto(newProject));
+        return new ResponseEntity<>(projectService.projectToDto(newProject), HttpStatus.CREATED);
     }
 
 }

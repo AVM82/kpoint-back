@@ -1,4 +1,4 @@
-package ua.in.kp.enums;
+package ua.in.kp.enumeration;
 
 public enum ProjectState {
 

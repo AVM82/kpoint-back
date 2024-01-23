@@ -13,10 +13,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ua.in.kp.enums.ProjectState;
+import org.hibernate.annotations.GenericGenerator;
+import ua.in.kp.enumeration.ProjectState;
 
 @Entity
 @Data
@@ -26,10 +28,11 @@ import ua.in.kp.enums.ProjectState;
 public class ProjectEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "project_id")
-    private Long projectId;
+    private String projectId;
 
+//    @ManyToOne
 //    @JoinColumn(name="user_id")
 //    private User_entity owner;
 
@@ -43,7 +46,7 @@ public class ProjectEntity {
     @ElementCollection
     private Set<String> tags;
 
-    private String logoBase64;
+    private String logoLink;
 
     private double latitude;
     private double longitude;

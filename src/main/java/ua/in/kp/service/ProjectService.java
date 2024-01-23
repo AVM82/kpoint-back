@@ -1,6 +1,7 @@
 package ua.in.kp.service;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import ua.in.kp.dto.ProjectDto;
 import ua.in.kp.entity.ProjectEntity;
@@ -16,5 +17,9 @@ public class ProjectService {
     public ProjectEntity createProject(ProjectDto projectDto) {
         ProjectEntity projectEntity = projectMapper.projectDtoToProjectEntity(projectDto);
         return projectRepository.save(projectEntity);
+    }
+
+    public ProjectDto projectToDto(ProjectEntity projectEntity) {
+        return projectMapper.projectEntityToProjectDto(projectEntity);
     }
 }

@@ -1,12 +1,7 @@
 package ua.in.kp.service;
 
-import com.google.common.collect.Sets;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,15 +26,15 @@ public class UserService {
     @Transactional
     public UserResponseDto create(UserCreateRequestDto dto) {
         UserEntity mappedEntity = userMapper.toEntity(dto);
-//        Set<TagEntity> nonPersistentTags = getNonPersistentTags(mappedEntity);
+        //        Set<TagEntity> nonPersistentTags = getNonPersistentTags(mappedEntity);
         mappedEntity.getTags().stream()
                 .filter(n -> !tagRepository.existsById(n))
                 .forEach(n -> tagRepository.save(TagEntity.builder().name(n).build()));
 
-//        mappedEntity.getTags().forEach(tagRepository::save);
+        //        mappedEntity.getTags().forEach(tagRepository::save);
 
-//        tagRepository.saveAll(nonPersistentTags);
-//        nonPersistentTags.forEach(tagRepository::save);
+        //        tagRepository.saveAll(nonPersistentTags);
+        //        nonPersistentTags.forEach(tagRepository::save);
         return userMapper.toDto(userRepository.save(mappedEntity));
     }
 
@@ -47,12 +42,12 @@ public class UserService {
         return userRepository.findAll(pageable).stream().map(userMapper::toDto).toList();
     }
 
-    private Set<TagEntity> getNonPersistentTags(UserEntity entity) {
+    /*private Set<TagEntity> getNonPersistentTags(UserEntity entity) {
         Set<String> persistentTags = tagRepository.findAllById(entity.getTags()).stream()
                 .map(TagEntity::getName)
                 .collect(Collectors.toSet());
         return Sets.difference(entity.getTags(), persistentTags).stream()
                 .map(n -> TagEntity.builder().name(n).build())
                 .collect(Collectors.toSet());
-    }
+    }*/
 }

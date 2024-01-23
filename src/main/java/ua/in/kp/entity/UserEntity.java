@@ -30,20 +30,29 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "username", columnDefinition = "VARCHAR(50)", nullable = false, unique = true)
     private String username;
 
+    @Column(name = "password", columnDefinition = "VARCHAR(100)", nullable = false, unique = true)
     private String password;
 
+    @Column(name = "email", columnDefinition = "VARCHAR(100)", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "first_name", columnDefinition = "VARCHAR(50)", nullable = false)
     private String firstName;
 
+    @Column(name = "last_name", columnDefinition = "VARCHAR(50)", nullable = false)
     private String lastName;
 
+    @Column(name = "avatar_img_url",
+            columnDefinition = "VARCHAR(100)")
     private String avatarImgUrl;
 
+    @Column(name = "description", columnDefinition = "VARCHAR(512)")
     private String description;
 
+    @Column(name = "tags", columnDefinition = "VARCHAR(10)[]", nullable = false)
     private Set<String> tags;
 
     @ElementCollection

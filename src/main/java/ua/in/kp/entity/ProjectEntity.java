@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,10 +33,10 @@ public class ProjectEntity {
     private String projectId;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private UserEntity owner;
 
-    @Column(columnDefinition = "VARCHAR(50)", nullable = false, unique = true)
+    @Column(columnDefinition = "VARCHAR(30)", nullable = false, unique = true)
     private String title;
 
     @Column(columnDefinition = "VARCHAR(150)", nullable = false)

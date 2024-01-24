@@ -20,11 +20,11 @@ public class ProjectResponseDto {
     private String logoImgUrl;
 
     private double latitude;
+
     private double longitude;
 
     private String createdAt;
 
-    //mapstr. enum
     private String state;
 
     private int ownerSum;

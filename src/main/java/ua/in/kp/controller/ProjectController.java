@@ -17,7 +17,7 @@ import ua.in.kp.service.ProjectService;
 @RequestMapping("/api/projects")
 public class ProjectController {
 
-  private final ProjectService projectService;
+    private final ProjectService projectService;
 
     @PostMapping("/")
     public ResponseEntity<ProjectResponseDto> createProject(

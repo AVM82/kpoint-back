@@ -3,12 +3,11 @@ package ua.in.kp.dto.project;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import java.time.LocalDateTime;
+import jakarta.validation.constraints.Size;
 import java.util.Map;
 import java.util.Set;
 import lombok.Data;
@@ -19,22 +18,21 @@ import ua.in.kp.validator.CollectionLength;
 public class ProjectCreateRequestDto {
 
     @NotBlank
-    @Max(30)
+    @Size(max = 30)
     private String title;
 
     @NotBlank
-    @Max(150)
+    @Size(max = 150)
     private String summary;
 
     @NotBlank
-    @Max(512)
+    @Size(max = 512)
     private String description;
 
     @NotEmpty
     @CollectionLength(min = 1, max = 5)
     private Set<String> tags;
 
-    //@Pattern() - ? service
     private String logoImgUrl;
 
     @DecimalMin(value = "-90.0")
@@ -56,13 +54,14 @@ public class ProjectCreateRequestDto {
     @PositiveOrZero
     private int startSum;
 
-    //        format ?
-    private LocalDateTime collectDeadline;
+    @NotNull
+    private String collectDeadline;
 
     @PositiveOrZero
     private int goalSum;
 
-    private LocalDateTime goalDeadline;
+    @NotNull
+    private String goalDeadline;
 
     @NotNull
     private Map<SocialNetworkName, String> networksLinks;

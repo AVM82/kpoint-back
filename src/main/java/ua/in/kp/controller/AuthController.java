@@ -1,18 +1,32 @@
 package ua.in.kp.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.in.kp.dto.user.UserCreateRequestDto;
+import ua.in.kp.dto.user.UserResponseDto;
+import ua.in.kp.service.AuthService;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
+    private final AuthService authService;
 
-    @PostMapping("auth/")
-    public String login(HttpServletRequest request) {
-        return null;
+    @PostMapping("/register")
+    public ResponseEntity<UserResponseDto> register(
+            @RequestBody @Valid UserCreateRequestDto userCreateRequestDto) {
+        return new ResponseEntity<>(authService.register(userCreateRequestDto), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserResponseDto> login(HttpServletRequest request) {
+        return ResponseEntity.ok(authService.login(request));
     }
 }

@@ -23,8 +23,9 @@ public record UserCreateRequestDto(
         @NotEmpty
         String lastName,
         String avatarImgUrl,
+        @Size(min = 10, max = 60)
         String description,
-        @CollectionLength(min = 4, max = 10)
+        @CollectionLength(min = 1, max = 10, message = "tags should be from {min} to {max}")
         Set<String> tags,
         Map<SocialNetworkName, String> socialNetworks,
         Set<UserRole> roles

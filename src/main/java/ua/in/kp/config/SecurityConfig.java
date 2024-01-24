@@ -19,15 +19,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final UserDetailsService customUserDetailsService;
     private static final String[] PERMITTED_PATHS =
-            {"/api/auth/",
+            {"/api/auth/register",
                     "/v3/api-docs/",
                     "/swagger-ui/**"};
-
-    public static String[] getPermittedPaths() {
-        return PERMITTED_PATHS;
-    }
+    private final UserDetailsService customUserDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

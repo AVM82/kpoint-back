@@ -3,6 +3,7 @@ package ua.in.kp.mapper;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ua.in.kp.config.MapperConfig;
 import ua.in.kp.dto.user.UserCreateRequestDto;
 import ua.in.kp.dto.user.UserResponseDto;
@@ -20,4 +21,7 @@ public interface UserMapper {
                 .map(String::toLowerCase)
                 .collect(Collectors.toSet());
     }
+
+    @Mapping(target = "password", source = "encodedPassword")
+    UserCreateRequestDto toDtoWithEncode(UserCreateRequestDto dto, String encodedPassword);
 }

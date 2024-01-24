@@ -24,4 +24,9 @@ public class ProjectService {
         log.info("ProjectEntity saved, id {}", projectEntity.getProjectId());
         return projectMapper.toDto(projectEntity);
     }
+
+    public ProjectResponseDto getById(String id) {
+        return projectRepository.findById(id).map(projectMapper::toDto)
+                .orElseThrow(() -> new RuntimeException("project.id.not.found"));
+    }
 }

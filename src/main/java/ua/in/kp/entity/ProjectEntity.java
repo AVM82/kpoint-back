@@ -85,7 +85,7 @@ public class ProjectEntity {
     private LocalDate goalDeadline;
 
     @ElementCollection
-    @Column(name = "networks-links")
+    @Column(name = "networks_links")
     private Map<String, String> networksLinks;
 
 }

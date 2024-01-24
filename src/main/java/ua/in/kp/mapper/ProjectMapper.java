@@ -1,10 +1,7 @@
 package ua.in.kp.mapper;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import ua.in.kp.config.MapperConfig;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;

@@ -1,18 +1,11 @@
-package ua.in.kp.dto;
+package ua.in.kp.dto.project;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 import lombok.Data;
-import ua.in.kp.enumeration.ProjectState;
 
 @Data
-public class ProjectDto {
+public class ProjectResponseDto {
 
     private String projectId;
 
@@ -24,7 +17,7 @@ public class ProjectDto {
 
     private Set<String> tags;
 
-    private String logoBase64;
+    private String logoImgUrl;
 
     private double latitude;
     private double longitude;

@@ -7,5 +7,4 @@ import ua.in.kp.entity.ProjectEntity;
 @Repository
 public interface ProjectRepository extends JpaRepository<ProjectEntity, Long> {
 
-
 }

@@ -10,5 +10,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             + "LEFT JOIN FETCH u.socialNetworks WHERE u.email=:email")
     Optional<UserEntity> findByEmail(String email);
 
-    boolean existsAllByEmail(String email);
+    boolean existsByEmail(String email);
 }

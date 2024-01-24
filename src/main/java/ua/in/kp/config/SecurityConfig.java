@@ -20,7 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private static final String[] PERMITTED_PATHS =
-            {"/api/auth/register",
+            {"/api/auth/**",
                     "/v3/api-docs/",
                     "/swagger-ui/**"};
     private final UserDetailsService customUserDetailsService;

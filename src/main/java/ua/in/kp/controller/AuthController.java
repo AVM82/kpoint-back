@@ -1,6 +1,5 @@
 package ua.in.kp.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.in.kp.dto.user.UserCreateRequestDto;
+import ua.in.kp.dto.user.UserLoginRequestDto;
+import ua.in.kp.dto.user.UserLoginResponseDto;
 import ua.in.kp.dto.user.UserResponseDto;
 import ua.in.kp.service.AuthService;
 
@@ -26,7 +27,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDto> login(HttpServletRequest request) {
-        return ResponseEntity.ok(authService.login(request));
+    public ResponseEntity<UserLoginResponseDto> login(@RequestBody UserLoginRequestDto dto) {
+        return ResponseEntity.ok(authService.login(dto));
     }
 }

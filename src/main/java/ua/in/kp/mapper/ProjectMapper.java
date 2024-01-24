@@ -16,17 +16,6 @@ public interface ProjectMapper {
     @Mapping(target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm:ss")
     @Mapping(target = "goalDeadline", dateFormat = "yyyy-MM-dd")
     ProjectResponseDto toDto(ProjectEntity projectEntity);
-
-//    @Mapping(target = "collectDeadline", qualifiedByName = "stringToLocalDateTime")
-//    @Mapping(target = "goalDeadline", qualifiedByName = "stringToLocalDateTime")
     ProjectEntity toEntity(ProjectCreateRequestDto projectDto);
 
-//    @Named("stringToLocalDateTime")
-//    default LocalDateTime stringToLocalDateTime(String dateTimeString) {
-//        if (dateTimeString == null) {
-//            return null;
-//        }
-//        return LocalDateTime.parse(dateTimeString,
-//                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//    }
 }

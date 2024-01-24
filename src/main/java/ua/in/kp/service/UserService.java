@@ -1,7 +1,9 @@
 package ua.in.kp.service;
 
 import com.google.common.collect.Sets;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,15 +31,15 @@ public class UserService {
     @Transactional
     public UserResponseDto create(UserCreateRequestDto dto) {
         UserEntity mappedEntity = userMapper.toEntity(dto);
-        //        Set<TagEntity> nonPersistentTags = getNonPersistentTags(mappedEntity);
+//        Set<TagEntity> nonPersistentTags = getNonPersistentTags(mappedEntity);
         mappedEntity.getTags().stream()
                 .filter(n -> !tagRepository.existsById(n))
                 .forEach(n -> tagRepository.save(TagEntity.builder().name(n).build()));
 
-        //        mappedEntity.getTags().forEach(tagRepository::save);
+//        mappedEntity.getTags().forEach(tagRepository::save);
 
-        //        tagRepository.saveAll(nonPersistentTags);
-        //        nonPersistentTags.forEach(tagRepository::save);
+//        tagRepository.saveAll(nonPersistentTags);
+//        nonPersistentTags.forEach(tagRepository::save);
         return userMapper.toDto(userRepository.save(mappedEntity));
     }
 

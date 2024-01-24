@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import ua.in.kp.enumeration.ProjectState;
 
 @Entity
@@ -58,6 +60,7 @@ public class ProjectEntity {
     private double longitude;
 
     @Column(name = "created_at")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt = LocalDateTime.now(ZoneOffset.UTC);
 
     @Enumerated(EnumType.STRING)
@@ -73,13 +76,13 @@ public class ProjectEntity {
     private int startSum;
 
     @Column(name = "collect_deadline")
-    private LocalDateTime collectDeadline;
+    private LocalDate collectDeadline;
 
     @Column(name = "goal_sum")
     private int goalSum;
 
     @Column(name = "goal_deadline")
-    private LocalDateTime goalDeadline;
+    private LocalDate goalDeadline;
 
     @ElementCollection
     @Column(name = "networks-links")

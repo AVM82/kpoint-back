@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class ProjectResponseDto {
-
+//add owner
     private String projectId;
 
     private String title;

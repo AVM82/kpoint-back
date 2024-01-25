@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import ua.in.kp.security.JwtAuthFilter;
 
 @Configuration
 @EnableMethodSecurity
@@ -24,6 +26,7 @@ public class SecurityConfig {
                     "/v3/api-docs/",
                     "/swagger-ui/**"};
     private final UserDetailsService customUserDetailsService;
+    private final JwtAuthFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -37,9 +40,9 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .userDetailsService(customUserDetailsService)
-                .httpBasic(Customizer.withDefaults());
-        //                .addFilterAfter(jwtAuthenticationFilter,
-        //                        UsernamePasswordAuthenticationFilter.class)
+                .httpBasic(Customizer.withDefaults())
+                                .addFilterAfter(jwtAuthenticationFilter,
+                                        UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

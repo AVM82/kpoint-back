@@ -6,6 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ua.in.kp.service.JwtUtil;
@@ -13,7 +18,7 @@ import ua.in.kp.service.JwtUtil;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
-
+    private final UserDetailsService customUserDetailsService;
     private final JwtUtil jwtUtil;
 
     @Override
@@ -21,11 +26,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
-        //дістати JWT
-        //validate by date + secret
-        //get subject from token
-        //get Authenticaton from AuthenticationManager by subject
-        //set Auth obj to security context
+        String token = jwtUtil.getTokenFromRequest(request);
+        if (token != null && jwtUtil.validate(token)) {
+            String subject = jwtUtil.getSubjectFromToken(token);
+            Authentication authentication = getAuthentication(subject);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
         filterChain.doFilter(request, response);
+    }
+
+    private Authentication getAuthentication(String subject) {
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(subject);
+        return new UsernamePasswordAuthenticationToken(
+                        subject, userDetails.getPassword(), userDetails.getAuthorities());
     }
 }

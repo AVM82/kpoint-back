@@ -1,5 +1,5 @@
 package ua.in.kp.repository;
 
-public interface TagRepository{
+public interface TagRepository {
     void saveByNameIfNotExist(String tagName);
 }

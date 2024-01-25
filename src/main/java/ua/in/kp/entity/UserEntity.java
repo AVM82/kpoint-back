@@ -14,8 +14,10 @@ import jakarta.persistence.MapKeyEnumerated;
 import jakarta.persistence.Table;
 import java.util.Collection;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,8 +33,8 @@ import ua.in.kp.enumeration.UserRole;
 public class UserEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(name = "username", columnDefinition = "VARCHAR(50)", nullable = false, unique = true)
     private String username;
@@ -68,7 +70,7 @@ public class UserEntity implements UserDetails {
     @ElementCollection
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private Set<UserRole> roles;
+    private Set<UserRole> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

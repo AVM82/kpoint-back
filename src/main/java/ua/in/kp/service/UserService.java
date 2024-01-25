@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ua.in.kp.dto.user.UserCreateRequestDto;
 import ua.in.kp.dto.user.UserResponseDto;
 import ua.in.kp.entity.UserEntity;
+import ua.in.kp.enumeration.UserRole;
 import ua.in.kp.mapper.UserMapper;
 import ua.in.kp.repository.TagRepository;
 import ua.in.kp.repository.UserRepository;
@@ -27,6 +28,7 @@ public class UserService {
         UserEntity mappedEntity = userMapper.toEntity(dto);
         mappedEntity.setPassword(passwordEncoder.encode(mappedEntity.getPassword()));
         mappedEntity.getTags().forEach(tagRepository::saveByNameIfNotExist);
+        mappedEntity.getRoles().add(UserRole.GUEST);
         return userMapper.toDto(userRepository.save(mappedEntity));
     }
 

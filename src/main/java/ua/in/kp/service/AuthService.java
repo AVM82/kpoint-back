@@ -31,6 +31,6 @@ public class AuthService {
                 .authenticate(
                         new UsernamePasswordAuthenticationToken(dto.username(), dto.password()));
         return new UserLoginResponseDto(
-                jwtUtil.generateToken(Encryptor.encrypt(authentication.getName())));
+                jwtUtil.generateToken(authentication.getName()));
     }
 }

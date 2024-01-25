@@ -7,7 +7,7 @@
 * Користувач (user)
 * Аудитор (auditor)
 
-```plantuml
+```
 @startuml
 !include <C4/C4_Container>
 

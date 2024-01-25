@@ -8,13 +8,19 @@ import java.util.Set;
 import ua.in.kp.enumeration.SocialNetworkName;
 import ua.in.kp.enumeration.UserRole;
 import ua.in.kp.validator.CollectionLength;
+import ua.in.kp.validator.FieldMatch;
 
+@FieldMatch(
+        field = "password",
+        fieldMatch = "repeatedPassword",
+        message = "{validation.constraint.passwords-dont-match.message}")
 public record UserCreateRequestDto(
         @Size(min = 2, message = "username should have at least 2 characters")
         @NotEmpty
         String username,
         @NotEmpty
         String password,
+        String repeatedPassword,
         @Email(message = "email should be a valid email format")
         @NotEmpty(message = "email should not be null or empty")
         String email,

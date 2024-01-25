@@ -26,7 +26,7 @@ public class UserService {
     public UserResponseDto create(UserCreateRequestDto dto) {
         UserEntity mappedEntity = userMapper.toEntity(dto);
         mappedEntity.setPassword(passwordEncoder.encode(mappedEntity.getPassword()));
-        mappedEntity.getTags().forEach(tagRepository::saveIt);
+        mappedEntity.getTags().forEach(tagRepository::saveByNameIfNotExist);
         return userMapper.toDto(userRepository.save(mappedEntity));
     }
 

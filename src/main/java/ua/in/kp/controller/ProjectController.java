@@ -28,6 +28,10 @@ public class ProjectController {
 
     @GetMapping()
     public ResponseEntity<List<ProjectResponseDto>> getAllProjects(Pageable pageable) {
-        return projectService.getAllProjects(pageable);
+        List<ProjectResponseDto> projects = projectService.getAllProjects(pageable);
+        if (projects.isEmpty()) {
+            return new ResponseEntity<>(projects, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 }

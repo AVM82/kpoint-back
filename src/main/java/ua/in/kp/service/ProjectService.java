@@ -31,12 +31,8 @@ public class ProjectService {
         return projectMapper.toDto(projectEntity);
     }
 
-    public ResponseEntity<List<ProjectResponseDto>> getAllProjects(Pageable pageable) {
+    public List<ProjectResponseDto> getAllProjects(Pageable pageable) {
         Page<ProjectEntity> page = projectRepository.findAll(pageable);
-        List<ProjectResponseDto> projects = page.map(projectMapper::toDto).getContent();
-        if (projects.isEmpty()) {
-            return new ResponseEntity<>(projects, HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(projects, HttpStatus.OK);
+        return page.map(projectMapper::toDto).getContent();
     }
 }

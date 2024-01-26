@@ -53,10 +53,10 @@ public class ProjectEntity {
     @Column(name = "logo_img_url")
     private String logoImgUrl;
 
-    @Column(columnDefinition = "DECIMAL(5,1) DEFAULT 49.0")
+    @Column(columnDefinition = "DECIMAL(5,1) DEFAULT 49.1")
     private double latitude;
 
-    @Column(columnDefinition = "DECIMAL(5,1) DEFAULT 31.5")
+    @Column(columnDefinition = "DECIMAL(5,1) DEFAULT 32.5")
     private double longitude;
 
     @Column(name = "created_at")

@@ -1,6 +1,7 @@
 package ua.in.kp.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,6 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateRequestDto dto) {
-        return ResponseEntity.ok(userService.create(dto));
+        return new ResponseEntity<>(userService.create(dto), HttpStatus.OK);
     }
 }

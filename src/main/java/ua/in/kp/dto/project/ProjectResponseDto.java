@@ -6,7 +6,9 @@ import lombok.Data;
 
 @Data
 public class ProjectResponseDto {
-    //add owner
+
+    private ProjectOwnerDto owner;
+
     private String projectId;
 
     private String title;
@@ -19,9 +21,7 @@ public class ProjectResponseDto {
 
     private String logoImgUrl;
 
-    private double latitude;
-
-    private double longitude;
+    private CoordinatesDto coordinates;
 
     private String createdAt;
 

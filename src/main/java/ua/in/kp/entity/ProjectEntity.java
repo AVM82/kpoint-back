@@ -5,6 +5,7 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,7 +48,7 @@ public class ProjectEntity {
     @Column(columnDefinition = "VARCHAR(512)", nullable = false)
     private String description;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> tags;
 
     @Column(name = "logo_img_url")
@@ -84,7 +85,7 @@ public class ProjectEntity {
     @Column(name = "goal_deadline")
     private LocalDate goalDeadline;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Column(name = "networks_links")
     private Map<String, String> networksLinks;
 

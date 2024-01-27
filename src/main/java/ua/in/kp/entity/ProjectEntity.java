@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
@@ -51,8 +52,9 @@ public class ProjectEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> tags;
 
-    @Column(name = "logo_img_url")
-    private String logoImgUrl;
+    @Lob
+    @Column(name = "logo_base64", columnDefinition = "TEXT")
+    private String logoBase64;
 
     @Column(columnDefinition = "DECIMAL(5,1) DEFAULT 49.1")
     private double latitude;

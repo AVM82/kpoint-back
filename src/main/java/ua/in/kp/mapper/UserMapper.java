@@ -9,9 +9,10 @@ import ua.in.kp.dto.user.UserCreateRequestDto;
 import ua.in.kp.dto.user.UserResponseDto;
 import ua.in.kp.entity.UserEntity;
 
-@Mapper(config = MapperConfig.class, uses = Collectors.class)
+@Mapper(config = MapperConfig.class)
 public interface UserMapper {
 
+    @Mapping(target = "roles", expression = "java(Set.of(UserRole.GUEST))")
     UserEntity toEntity(UserCreateRequestDto dto);
 
     UserResponseDto toDto(UserEntity user);

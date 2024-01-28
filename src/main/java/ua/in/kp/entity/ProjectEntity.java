@@ -57,10 +57,10 @@ public class ProjectEntity {
     private String logoBase64;
 
     @Column(columnDefinition = "DECIMAL(5,1)")
-    private double latitude=49.1;
+    private double latitude;
 
     @Column(columnDefinition = "DECIMAL(5,1)")
-    private double longitude=32.5;
+    private double longitude;
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

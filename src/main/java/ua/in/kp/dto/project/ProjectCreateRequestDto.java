@@ -1,5 +1,6 @@
 package ua.in.kp.dto.project;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
@@ -37,15 +38,15 @@ public class ProjectCreateRequestDto {
 
     private String logoImgUrl;
 
-    @DecimalMin(value = "-90.0")
-    @DecimalMax(value = "90.0")
+    @DecimalMin(value = "-90.0", message = "{project.latitude.size}")
+    @DecimalMax(value = "90.0", message = "{project.latitude.size}")
     @Digits(integer = 3, fraction = 1)
-    private double latitude;
+    private Double latitude;
 
-    @DecimalMin(value = "-180.0")
-    @DecimalMax(value = "180.0")
+    @DecimalMin(value = "-180.0", message = "{project.longitude.size}")
+    @DecimalMax(value = "180.0", message = "{project.longitude.size}")
     @Digits(integer = 4, fraction = 1)
-    private double longitude;
+    private Double longitude;
 
     @PositiveOrZero
     private int ownerSum;
@@ -68,4 +69,11 @@ public class ProjectCreateRequestDto {
     @NotNull
     private Map<SocialNetworkName, String> networksLinks;
 
+    public double getLatitude() {
+        return latitude != null? latitude : 49.1;
+    }
+
+    public double getLongitude() {
+        return longitude != null? longitude : 32.5;
+    }
 }

@@ -27,12 +27,12 @@ public class ProjectCreateRequestDto {
     @Size(max = 150)
     private String summary;
 
-    @NotBlank
-    @Size(max = 512)
+    @NotBlank(message="{project.description.not.null}")
+    @Size(max = 512, message="{project.description.max}")
     private String description;
 
-    @NotEmpty
-    @CollectionLength(min = 1, max = 5)
+    @NotEmpty(message="{project.tag.not.null}")
+    @CollectionLength(min = 1, max = 5, message="{project.tag.not.null}")
     private Set<String> tags;
 
     private String logoImgUrl;
@@ -56,13 +56,13 @@ public class ProjectCreateRequestDto {
     @PositiveOrZero
     private int startSum;
 
-    @NotNull
+    @NotNull(message = "{project.collectDeadline.not.null}")
     private String collectDeadline;
 
     @PositiveOrZero
     private int goalSum;
 
-    @NotNull
+    @NotNull(message = "{project.goalDeadline.not.null}")
     private String goalDeadline;
 
     @NotNull

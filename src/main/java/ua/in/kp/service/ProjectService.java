@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ua.in.kp.dto.project.CoordinatesDto;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
 import ua.in.kp.entity.ProjectEntity;
@@ -29,7 +26,13 @@ public class ProjectService {
 
         projectRepository.save(projectEntity);
         log.info("ProjectEntity saved, id {}", projectEntity.getProjectId());
-        return projectMapper.toDto(projectEntity);
+        ProjectResponseDto dto = projectMapper.toDto(projectEntity);
+
+//        dto.setCoordinates(new CoordinatesDto(
+//                projectEntity.getLatitude(),
+//                projectEntity.getLongitude()));
+//        dto.setLogoImgUrl(projectEntity.getLogoBase64());
+        return dto;
     }
 
     public List<ProjectResponseDto> getAllProjects(Pageable pageable) {
@@ -42,9 +45,9 @@ public class ProjectService {
                 .orElseThrow(() ->
                         new ProjectNotFoundException("Project not found with ID: " + projectId));
         ProjectResponseDto dto = projectMapper.toDto(projectEntity);
-        dto.setCoordinates(new CoordinatesDto(
-                projectEntity.getLatitude(),
-                projectEntity.getLongitude()));
+//        dto.setCoordinates(new CoordinatesDto(
+//                projectEntity.getLatitude(),
+//                projectEntity.getLongitude()));
         return dto;
     }
 }

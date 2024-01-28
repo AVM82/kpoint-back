@@ -6,9 +6,8 @@ import ua.in.kp.enumeration.SocialNetworkName;
 import ua.in.kp.enumeration.UserRole;
 
 public record UserResponseDto(
-        Long id,
+        String id,
         String username,
-        String password,
         String email,
         String firstName,
         String lastName,

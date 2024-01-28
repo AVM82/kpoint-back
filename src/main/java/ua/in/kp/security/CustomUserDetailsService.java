@@ -1,6 +1,5 @@
 package ua.in.kp.security;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +16,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String principal) throws UsernameNotFoundException {
         return userRepository.findByEmailOrUsername(principal)
                 .orElseThrow(() ->
-                        new EntityNotFoundException("Authentication Failed. User not found"));
+                        new UsernameNotFoundException("Authentication Failed. User not found"));
     }
 }

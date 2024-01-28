@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ua.in.kp.dto.project.CoordinatesDto;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
 import ua.in.kp.entity.ProjectEntity;
@@ -42,13 +41,11 @@ public class ProjectService {
     }
 
     public ProjectResponseDto getProjectById(String projectId) {
+        log.info("Get by id project method started");
         ProjectEntity projectEntity = projectRepository.findById(projectId)
                 .orElseThrow(() ->
                         new ProjectNotFoundException("Project not found with ID: " + projectId));
-        ProjectResponseDto dto = projectMapper.toDto(projectEntity);
-        dto.setCoordinates(new CoordinatesDto(
-                projectEntity.getLatitude(),
-                projectEntity.getLongitude()));
-        return dto;
+        log.info("Project retrieved, id {}", projectEntity.getProjectId());
+        return projectMapper.toDto(projectEntity);
     }
 }

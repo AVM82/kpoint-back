@@ -21,7 +21,9 @@ public class ProjectResponseDto {
 
     private String logoImgUrl;
 
-    private CoordinatesDto coordinates;
+    private double latitude;
+
+    private double longitude;
 
     private String createdAt;
 

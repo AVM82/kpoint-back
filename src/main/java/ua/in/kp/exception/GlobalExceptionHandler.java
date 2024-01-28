@@ -53,10 +53,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return createResponseEntity(statusCode, ex.getLocalizedMessage());
     }
 
-    @ExceptionHandler(value = {
-            EntityNotFoundException.class,
-            UsernameNotFoundException.class,
-    })
+    @ExceptionHandler(value = {RuntimeException.class})
     protected ResponseEntity<Object> handleDataProcessingException(RuntimeException ex) {
         return createResponseEntity(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage());
     }
@@ -69,13 +66,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 URI.create(
                         "https://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=RERR_sql"));
         problemDetail.setProperty("SQL error code", ex.getErrorCode());
-        return ResponseEntity.of(problemDetail).build();
-    }
-
-    private ResponseEntity<Object> createResponseEntity(HttpStatusCode statusCode) {
-        ProblemDetail problemDetail = ProblemDetail.forStatus(statusCode);
-        problemDetail.setProperty(TIMESTAMP_PROPERTY_NAME,
-                LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         return ResponseEntity.of(problemDetail).build();
     }
 

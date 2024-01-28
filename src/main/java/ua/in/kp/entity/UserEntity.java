@@ -9,7 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.MapKeyEnumerated;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.Collection;
 import java.util.EnumMap;
@@ -70,6 +72,9 @@ public class UserEntity implements UserDetails {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated
     private Set<UserRole> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "owner")
+    private Set<ProjectEntity> projectsOwned;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

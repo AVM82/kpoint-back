@@ -1,4 +1,4 @@
-package ua.in.kp.service;
+package ua.in.kp.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

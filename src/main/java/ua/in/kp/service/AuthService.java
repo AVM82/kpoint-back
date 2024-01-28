@@ -10,6 +10,7 @@ import ua.in.kp.dto.user.UserCreateRequestDto;
 import ua.in.kp.dto.user.UserLoginRequestDto;
 import ua.in.kp.dto.user.UserLoginResponseDto;
 import ua.in.kp.dto.user.UserResponseDto;
+import ua.in.kp.security.JwtUtil;
 
 @Service
 @RequiredArgsConstructor

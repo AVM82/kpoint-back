@@ -20,11 +20,12 @@ import ua.in.kp.repository.ProjectRepository;
 public class ProjectService {
     private final ProjectRepository projectRepository;
     private final ProjectMapper projectMapper;
+    private final UserService userService;
 
     public ProjectResponseDto createProject(ProjectCreateRequestDto projectDto) {
         log.info("Create project method started");
         ProjectEntity projectEntity = projectMapper.toEntity(projectDto);
-
+        projectEntity.setOwner(userService.getAuthenticated());
         projectRepository.save(projectEntity);
         log.info("ProjectEntity saved, id {}", projectEntity.getProjectId());
         return projectMapper.toDto(projectEntity);

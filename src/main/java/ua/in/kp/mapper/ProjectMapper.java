@@ -13,6 +13,7 @@ public interface ProjectMapper {
     @Mapping(target = "collectDeadline", dateFormat = "yyyy-MM-dd")
     @Mapping(target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm:ss")
     @Mapping(target = "goalDeadline", dateFormat = "yyyy-MM-dd")
+    @Mapping(target = "owner.ownerId", source = "projectEntity.owner.id")
     ProjectResponseDto toDto(ProjectEntity projectEntity);
 
     ProjectEntity toEntity(ProjectCreateRequestDto projectDto);

@@ -29,7 +29,7 @@ public class AuthService {
     public UserLoginResponseDto login(UserLoginRequestDto dto) {
         Authentication authentication = authenticationManager
                 .authenticate(
-                        new UsernamePasswordAuthenticationToken(dto.username(), dto.password()));
+                        new UsernamePasswordAuthenticationToken(dto.email(), dto.password()));
         return new UserLoginResponseDto(
                 jwtUtil.generateToken(authentication.getName()));
     }

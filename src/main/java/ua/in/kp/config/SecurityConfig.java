@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,10 +20,6 @@ import ua.in.kp.security.JwtAuthFilter;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private static final String[] PERMITTED_PATHS =
-            {"/api/auth/**",
-                    "/v3/api-docs/",
-                    "/swagger-ui/**"};
     private final UserDetailsService customUserDetailsService;
     private final JwtAuthFilter jwtAuthenticationFilter;
 
@@ -34,15 +29,16 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(PERMITTED_PATHS)
+                        .requestMatchers("/api/auth/**",
+                                "/v3/api-docs/",
+                                "/swagger-ui/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .userDetailsService(customUserDetailsService)
-                .httpBasic(Customizer.withDefaults())
-                                .addFilterAfter(jwtAuthenticationFilter,
-                                        UsernamePasswordAuthenticationFilter.class);
+                .addFilterAfter(jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

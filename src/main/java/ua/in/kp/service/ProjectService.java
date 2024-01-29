@@ -28,7 +28,7 @@ public class ProjectService {
     public ProjectResponseDto createProject(ProjectCreateRequestDto projectDto) {
         log.info("Create project method started");
 
-        projectDto.getTags().forEach(tagRepository::saveByNameIfNotExist);
+        projectDto.getTags().forEach(tag -> tagRepository.saveByNameIfNotExist(tag.toLowerCase()));
 
         ProjectEntity projectEntity = projectMapper.toEntity(projectDto);
         projectEntity.setOwner(userService.getAuthenticated());
@@ -47,7 +47,7 @@ public class ProjectService {
         ProjectEntity projectEntity = projectRepository.findById(projectId)
                 .orElseThrow(() ->
                         new ProjectNotFoundException("Project not found with ID: " + projectId));
-        
+
         return projectMapper.toDto(projectEntity);
     }
 }

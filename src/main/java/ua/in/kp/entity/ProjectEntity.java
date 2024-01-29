@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
@@ -49,8 +50,8 @@ public class ProjectEntity {
     @Column(columnDefinition = "VARCHAR(512)", nullable = false)
     private String description;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> tags;
+    @ManyToMany
+    private Set<TagEntity> tags;
 
     @Lob
     @Column(name = "logo_base64", columnDefinition = "TEXT")

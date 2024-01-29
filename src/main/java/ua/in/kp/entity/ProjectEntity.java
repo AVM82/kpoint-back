@@ -89,4 +89,6 @@ public class ProjectEntity {
     @Column(name = "networks_links")
     private Map<String, String> networksLinks;
 
+    @Column(name = "active")
+    private boolean active = true;
 }

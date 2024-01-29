@@ -1,6 +1,7 @@
 package ua.in.kp.service;
 
 import java.util.List;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Service;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
 import ua.in.kp.entity.ProjectEntity;
+import ua.in.kp.entity.TagEntity;
 import ua.in.kp.exception.ProjectNotFoundException;
 import ua.in.kp.mapper.ProjectMapper;
 import ua.in.kp.repository.ProjectRepository;
+import ua.in.kp.repository.TagRepository;
 
 @AllArgsConstructor
 @Service
@@ -19,20 +22,25 @@ import ua.in.kp.repository.ProjectRepository;
 public class ProjectService {
     private final ProjectRepository projectRepository;
     private final ProjectMapper projectMapper;
+    private final UserService userService;
+    private final TagRepository tagRepository;
 
     public ProjectResponseDto createProject(ProjectCreateRequestDto projectDto) {
         log.info("Create project method started");
-        ProjectEntity projectEntity = projectMapper.toEntity(projectDto);
+        tagRepository.saveByNameIfNotExist("tag");
 
-        projectRepository.save(projectEntity);
-        log.info("ProjectEntity saved, id {}", projectEntity.getProjectId());
-        ProjectResponseDto dto = projectMapper.toDto(projectEntity);
+//        projectDto.getTags().forEach(tagRepository::saveByNameIfNotExist);
+//
+//
+//        ProjectEntity projectEntity = projectMapper.toEntity(projectDto);
+//
+////        projectEntity.setOwner(userService.getAuthenticated());
+//
+//        projectRepository.save(projectEntity);
+//        log.info("ProjectEntity saved, id {}", projectEntity.getProjectId());
 
-//        dto.setCoordinates(new CoordinatesDto(
-//                projectEntity.getLatitude(),
-//                projectEntity.getLongitude()));
-//        dto.setLogoImgUrl(projectEntity.getLogoBase64());
-        return dto;
+//        return projectMapper.toDto(projectEntity);
+        return null;
     }
 
     public List<ProjectResponseDto> getAllProjects(Pageable pageable) {
@@ -45,9 +53,6 @@ public class ProjectService {
                 .orElseThrow(() ->
                         new ProjectNotFoundException("Project not found with ID: " + projectId));
         ProjectResponseDto dto = projectMapper.toDto(projectEntity);
-//        dto.setCoordinates(new CoordinatesDto(
-//                projectEntity.getLatitude(),
-//                projectEntity.getLongitude()));
         return dto;
     }
 }

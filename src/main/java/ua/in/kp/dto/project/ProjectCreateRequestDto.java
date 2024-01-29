@@ -1,6 +1,5 @@
 package ua.in.kp.dto.project;
 
-import io.micrometer.common.util.StringUtils;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;

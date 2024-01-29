@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ua.in.kp.config.MapperConfig;
+import ua.in.kp.dto.project.GetAllProjectsDto;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
 import ua.in.kp.entity.ProjectEntity;
@@ -19,6 +20,8 @@ public interface ProjectMapper {
     ProjectResponseDto toDto(ProjectEntity projectEntity);
 
     ProjectEntity toEntity(ProjectCreateRequestDto projectDto);
+
+    GetAllProjectsDto getAllToDto(ProjectEntity projectEntity);
 
     default Set<TagEntity> mapStringToTagSet(Set<String> tags) {
         return tags.stream()

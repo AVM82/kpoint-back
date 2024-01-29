@@ -1,11 +1,12 @@
 package ua.in.kp.controller;
 
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import ua.in.kp.dto.project.GetAllProjectsDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,12 +32,8 @@ public class ProjectController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ProjectResponseDto>> getAllProjects(Pageable pageable) {
-        List<ProjectResponseDto> projects = projectService.getAllProjects(pageable);
-        if (projects.isEmpty()) {
-            return new ResponseEntity<>(projects, HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(projects, HttpStatus.OK);
+    public ResponseEntity<Page<GetAllProjectsDto>> getAllProjects(Pageable pageable) {
+        return new ResponseEntity<>(projectService.getAllProjects(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{projectId}")

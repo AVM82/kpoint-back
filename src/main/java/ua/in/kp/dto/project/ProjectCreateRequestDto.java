@@ -9,14 +9,20 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Base64;
 import java.util.Map;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import ua.in.kp.enumeration.SocialNetworkName;
 import ua.in.kp.validator.CollectionLength;
 
 @Data
+@Slf4j
 @AllArgsConstructor
 public class ProjectCreateRequestDto {
 
@@ -28,12 +34,12 @@ public class ProjectCreateRequestDto {
     @Size(max = 150)
     private String summary;
 
-    @NotBlank(message="{project.description.not.null}")
-    @Size(max = 512, message="{project.description.max}")
+    @NotBlank(message = "{project.description.not.null}")
+    @Size(max = 512, message = "{project.description.max}")
     private String description;
 
-    @NotEmpty(message="{project.tag.not.null}")
-    @CollectionLength(min = 1, max = 5, message="{project.tag.not.null}")
+    @NotEmpty(message = "{project.tag.not.null}")
+    @CollectionLength(min = 1, max = 5, message = "{project.tag.not.null}")
     private Set<String> tags;
 
     private String logoImgUrl;
@@ -70,10 +76,23 @@ public class ProjectCreateRequestDto {
     private Map<SocialNetworkName, String> networksLinks;
 
     public double getLatitude() {
-        return latitude != null? latitude : 49.1;
+        return latitude != null ? latitude : 49.1;
     }
 
     public double getLongitude() {
-        return longitude != null? longitude : 32.5;
+        return longitude != null ? longitude : 32.5;
+    }
+
+    public String getLogoImgUrl() {
+        if (logoImgUrl == null) {
+            try {
+                Path imagePath = Path.of("proj.jpeg");
+                byte[] imageBytes = Files.readAllBytes(imagePath);
+                return logoImgUrl = Base64.getEncoder().encodeToString(imageBytes);
+            } catch (IOException e) {
+                log.warn("File wasn't found");
+            }
+        }
+        return logoImgUrl;
     }
 }

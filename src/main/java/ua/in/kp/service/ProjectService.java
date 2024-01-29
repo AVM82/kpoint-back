@@ -44,10 +44,11 @@ public class ProjectService {
     }
 
     public ProjectResponseDto getProjectById(String projectId) {
+        log.info("Get by id project method started");
         ProjectEntity projectEntity = projectRepository.findById(projectId)
                 .orElseThrow(() ->
                         new ProjectNotFoundException("Project not found with ID: " + projectId));
-
+        log.info("Project retrieved, id {}", projectEntity.getProjectId());
         return projectMapper.toDto(projectEntity);
     }
 }

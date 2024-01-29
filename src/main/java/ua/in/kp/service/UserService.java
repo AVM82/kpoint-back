@@ -1,6 +1,5 @@
 package ua.in.kp.service;
 
-import com.google.common.collect.Sets;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
@@ -45,12 +44,12 @@ public class UserService {
         return userRepository.findAll(pageable).stream().map(userMapper::toDto).toList();
     }
 
-    private Set<TagEntity> getNonPersistentTags(UserEntity entity) {
-        Set<String> persistentTags = tagRepository.findAllById(entity.getTags()).stream()
-                .map(TagEntity::getName)
-                .collect(Collectors.toSet());
-        return Sets.difference(entity.getTags(), persistentTags).stream()
-                .map(n -> TagEntity.builder().name(n).build())
-                .collect(Collectors.toSet());
-    }
+//    private Set<TagEntity> getNonPersistentTags(UserEntity entity) {
+//        Set<String> persistentTags = tagRepository.findAllById(entity.getTags()).stream()
+//                .map(TagEntity::getName)
+//                .collect(Collectors.toSet());
+//        return Sets.difference(entity.getTags(), persistentTags).stream()
+//                .map(n -> TagEntity.builder().name(n).build())
+//                .collect(Collectors.toSet());
+//    }
 }

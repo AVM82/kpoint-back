@@ -1,7 +1,7 @@
 package ua.in.kp.service;
 
+import jakarta.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
 import ua.in.kp.entity.ProjectEntity;
-import ua.in.kp.entity.TagEntity;
 import ua.in.kp.exception.ProjectNotFoundException;
 import ua.in.kp.mapper.ProjectMapper;
 import ua.in.kp.repository.ProjectRepository;
@@ -25,22 +24,18 @@ public class ProjectService {
     private final UserService userService;
     private final TagRepository tagRepository;
 
+    @Transactional
     public ProjectResponseDto createProject(ProjectCreateRequestDto projectDto) {
         log.info("Create project method started");
-        tagRepository.saveByNameIfNotExist("tag");
 
-//        projectDto.getTags().forEach(tagRepository::saveByNameIfNotExist);
-//
-//
-//        ProjectEntity projectEntity = projectMapper.toEntity(projectDto);
-//
-////        projectEntity.setOwner(userService.getAuthenticated());
-//
-//        projectRepository.save(projectEntity);
-//        log.info("ProjectEntity saved, id {}", projectEntity.getProjectId());
+        projectDto.getTags().forEach(tagRepository::saveByNameIfNotExist);
 
-//        return projectMapper.toDto(projectEntity);
-        return null;
+        ProjectEntity projectEntity = projectMapper.toEntity(projectDto);
+        projectEntity.setOwner(userService.getAuthenticated());
+        projectRepository.save(projectEntity);
+        log.info("ProjectEntity saved, id {}", projectEntity.getProjectId());
+
+        return projectMapper.toDto(projectEntity);
     }
 
     public List<ProjectResponseDto> getAllProjects(Pageable pageable) {
@@ -52,7 +47,7 @@ public class ProjectService {
         ProjectEntity projectEntity = projectRepository.findById(projectId)
                 .orElseThrow(() ->
                         new ProjectNotFoundException("Project not found with ID: " + projectId));
-        ProjectResponseDto dto = projectMapper.toDto(projectEntity);
-        return dto;
+        
+        return projectMapper.toDto(projectEntity);
     }
 }

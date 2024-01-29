@@ -4,16 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ua.in.kp.dto.project.GetAllProjectsDto;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
 import ua.in.kp.entity.ProjectEntity;
 import ua.in.kp.mapper.ProjectMapper;
 import ua.in.kp.repository.ProjectRepository;
-
-import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -31,8 +28,11 @@ public class ProjectService {
         return projectMapper.toDto(projectEntity);
     }
 
-    public List<ProjectResponseDto> getAllProjects(Pageable pageable) {
+    public Page<GetAllProjectsDto> getAllProjects(Pageable pageable) {
         Page<ProjectEntity> page = projectRepository.findAll(pageable);
-        return page.map(projectMapper::toDto).getContent();
+        log.info("Got all projects from projectRepository.");
+        Page<GetAllProjectsDto> toReturn = page.map(projectMapper::getAllToDto);
+        log.info("Map all projectsEntity to DTO and return page with them.");
+        return toReturn;
     }
 }

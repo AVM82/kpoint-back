@@ -45,4 +45,5 @@ public class UserService {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return (UserEntity) customUserDetailsService.loadUserByUsername(email);
     }
+
 }

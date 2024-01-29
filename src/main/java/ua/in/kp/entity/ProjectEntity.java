@@ -10,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
@@ -20,11 +22,13 @@ import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import ua.in.kp.enumeration.ProjectState;
 
 @Entity
 @Data
+@Slf4j
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "projects")
@@ -48,17 +52,18 @@ public class ProjectEntity {
     @Column(columnDefinition = "VARCHAR(512)", nullable = false)
     private String description;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> tags;
+    @ManyToMany
+    private Set<TagEntity> tags;
 
-    @Column(name = "logo_img_url")
+    @Lob
+    @Column(name = "logo_img_url", columnDefinition = "TEXT")
     private String logoImgUrl;
 
-    @Column(columnDefinition = "DECIMAL(5,1) DEFAULT 49.0")
-    private double latitude;
+    @Column(columnDefinition = "DECIMAL(5,1)")
+    private double latitude = 49.1;
 
-    @Column(columnDefinition = "DECIMAL(5,1) DEFAULT 31.5")
-    private double longitude;
+    @Column(columnDefinition = "DECIMAL(5,1)")
+    private double longitude = 32.5;
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

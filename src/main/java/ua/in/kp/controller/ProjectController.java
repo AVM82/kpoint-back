@@ -23,7 +23,7 @@ public class ProjectController {
 
     private final ProjectService projectService;
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<ProjectResponseDto> createProject(
             @Valid @RequestBody ProjectCreateRequestDto createdProject) {
         return new ResponseEntity<>(projectService
@@ -32,7 +32,11 @@ public class ProjectController {
 
     @GetMapping()
     public ResponseEntity<List<ProjectResponseDto>> getAllProjects(Pageable pageable) {
-        return projectService.getAllProjects(pageable);
+        List<ProjectResponseDto> projects = projectService.getAllProjects(pageable);
+        if (projects.isEmpty()) {
+            return new ResponseEntity<>(projects, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 
     @GetMapping("/{projectId}")

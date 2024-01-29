@@ -8,14 +8,20 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Base64;
 import java.util.Map;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import ua.in.kp.enumeration.SocialNetworkName;
 import ua.in.kp.validator.CollectionLength;
 
 @Data
+@Slf4j
 @AllArgsConstructor
 public class ProjectCreateRequestDto {
 
@@ -27,25 +33,25 @@ public class ProjectCreateRequestDto {
     @Size(max = 150)
     private String summary;
 
-    @NotBlank
-    @Size(max = 512)
+    @NotBlank(message = "{project.description.not.null}")
+    @Size(max = 512, message = "{project.description.max}")
     private String description;
 
-    @NotEmpty
-    @CollectionLength(min = 1, max = 5)
+    @NotEmpty(message = "{project.tag.not.null}")
+    @CollectionLength(min = 1, max = 5, message = "{project.tag.not.null}")
     private Set<String> tags;
 
     private String logoImgUrl;
 
-    @DecimalMin(value = "-90.0")
-    @DecimalMax(value = "90.0")
+    @DecimalMin(value = "-90.0", message = "{project.latitude.size}")
+    @DecimalMax(value = "90.0", message = "{project.latitude.size}")
     @Digits(integer = 3, fraction = 1)
-    private double latitude;
+    private Double latitude;
 
-    @DecimalMin(value = "-180.0")
-    @DecimalMax(value = "180.0")
+    @DecimalMin(value = "-180.0", message = "{project.longitude.size}")
+    @DecimalMax(value = "180.0", message = "{project.longitude.size}")
     @Digits(integer = 4, fraction = 1)
-    private double longitude;
+    private Double longitude;
 
     @PositiveOrZero
     private int ownerSum;
@@ -56,16 +62,36 @@ public class ProjectCreateRequestDto {
     @PositiveOrZero
     private int startSum;
 
-    @NotNull
+    @NotNull(message = "{project.collectDeadline.not.null}")
     private String collectDeadline;
 
     @PositiveOrZero
     private int goalSum;
 
-    @NotNull
+    @NotNull(message = "{project.goalDeadline.not.null}")
     private String goalDeadline;
 
     @NotNull
     private Map<SocialNetworkName, String> networksLinks;
 
+    public double getLatitude() {
+        return latitude != null ? latitude : 49.1;
+    }
+
+    public double getLongitude() {
+        return longitude != null ? longitude : 32.5;
+    }
+
+    public String getLogoImgUrl() {
+        if (logoImgUrl == null) {
+            try {
+                Path imagePath = Path.of("proj.jpeg");
+                byte[] imageBytes = Files.readAllBytes(imagePath);
+                return logoImgUrl = Base64.getEncoder().encodeToString(imageBytes);
+            } catch (IOException e) {
+                log.warn("File wasn't found");
+            }
+        }
+        return logoImgUrl;
+    }
 }

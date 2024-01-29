@@ -17,8 +17,6 @@ import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
 import ua.in.kp.service.ProjectService;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/projects")

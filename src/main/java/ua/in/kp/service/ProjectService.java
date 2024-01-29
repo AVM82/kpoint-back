@@ -1,7 +1,6 @@
 package ua.in.kp.service;
 
 import jakarta.transaction.Transactional;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import ua.in.kp.entity.ProjectEntity;
 import ua.in.kp.exception.ProjectNotFoundException;
 import ua.in.kp.mapper.ProjectMapper;
 import ua.in.kp.repository.ProjectRepository;
-
 import ua.in.kp.repository.TagRepository;
 
 @AllArgsConstructor

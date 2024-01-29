@@ -2,6 +2,7 @@ package ua.in.kp.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import ua.in.kp.config.MapperConfig;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
@@ -15,5 +16,7 @@ public interface ProjectMapper {
     ProjectResponseDto toDto(ProjectEntity projectEntity);
 
     ProjectEntity toEntity(ProjectCreateRequestDto projectDto);
+
+    void updateProjectFromDto(ProjectCreateRequestDto dto, @MappingTarget ProjectEntity entity);
 
 }

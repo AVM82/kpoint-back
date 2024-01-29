@@ -43,4 +43,22 @@ public class ProjectService {
         }
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
+
+    public ProjectResponseDto updateProject(String id, ProjectCreateRequestDto projectDto) {
+        ProjectEntity project = projectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("project.id.not.found"));
+        projectMapper.updateProjectFromDto(projectDto, project);
+
+        ProjectEntity updatedProject = projectRepository.save(project);
+
+        return projectMapper.toDto(updatedProject);
+
+    }
+
+    public void deleteById(String id) {
+        ProjectEntity project = projectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("project.id.not.found"));
+        project.setActive(false);
+        projectRepository.save(project);
+    }
 }

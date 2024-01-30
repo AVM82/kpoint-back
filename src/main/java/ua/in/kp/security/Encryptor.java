@@ -1,4 +1,4 @@
-package ua.in.kp.service;
+package ua.in.kp.security;
 
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;

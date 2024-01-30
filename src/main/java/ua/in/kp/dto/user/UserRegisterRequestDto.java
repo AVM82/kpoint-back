@@ -7,13 +7,19 @@ import java.util.Map;
 import java.util.Set;
 import ua.in.kp.enumeration.SocialNetworkName;
 import ua.in.kp.validator.CollectionLength;
+import ua.in.kp.validator.FieldMatch;
 
-public record UserCreateRequestDto(
+@FieldMatch(
+        field = "password",
+        fieldMatch = "repeatedPassword",
+        message = "{validation.constraint.passwords-dont-match.message}")
+public record UserRegisterRequestDto(
         @Size(min = 2, message = "username should have at least 2 characters")
         @NotEmpty
         String username,
         @NotEmpty
         String password,
+        String repeatedPassword,
         @Email(message = "email should be a valid email format")
         @NotEmpty(message = "email should not be null or empty")
         String email,
@@ -22,7 +28,7 @@ public record UserCreateRequestDto(
         @NotEmpty
         String lastName,
         String avatarImgUrl,
-        @Size(min = 10, max = 60)
+        @Size(max = 60)
         String description,
         @CollectionLength(min = 1, max = 10, message = "tags should be from {min} to {max}")
         Set<String> tags,

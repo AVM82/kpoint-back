@@ -10,7 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.MapKeyEnumerated;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.Collection;
 import java.util.EnumMap;
@@ -58,8 +60,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "description", columnDefinition = "VARCHAR(512)")
     private String description;
 
-    @Column(name = "tags", columnDefinition = "VARCHAR(10)[]", nullable = false)
-    private Set<String> tags;
+    @ManyToMany
+    private Set<TagEntity> tags;
 
     @ElementCollection
     @CollectionTable(name = "user_socials", joinColumns = @JoinColumn(name = "user_id"))
@@ -71,6 +73,9 @@ public class UserEntity implements UserDetails {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "owner")
+    private Set<ProjectEntity> projectsOwned;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -97,5 +102,9 @@ public class UserEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getUsername() {
+        return email;
     }
 }

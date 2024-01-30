@@ -9,9 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import ua.in.kp.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    @Query("FROM UserEntity u LEFT JOIN FETCH u.roles "
-            + "LEFT JOIN FETCH u.socialNetworks WHERE u.email=:principal OR u.username=:principal")
-    Optional<UserEntity> findByEmailOrUsername(String principal);
+    @Query("FROM UserEntity u LEFT JOIN FETCH u.roles WHERE u.email=:email")
+    Optional<UserEntity> findByEmail(String email);
 
     boolean existsByEmail(String email);
 

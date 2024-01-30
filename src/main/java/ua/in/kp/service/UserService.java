@@ -4,9 +4,11 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ua.in.kp.dto.user.UserCreateRequestDto;
+import ua.in.kp.dto.user.UserRegisterRequestDto;
 import ua.in.kp.dto.user.UserResponseDto;
 import ua.in.kp.entity.UserEntity;
 import ua.in.kp.mapper.UserMapper;
@@ -21,12 +23,13 @@ public class UserService {
     private final TagRepository tagRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final UserDetailsService customUserDetailsService;
 
     @Transactional
-    public UserResponseDto create(UserCreateRequestDto dto) {
+    public UserResponseDto create(UserRegisterRequestDto dto) {
         UserEntity mappedEntity = userMapper.toEntity(dto);
         mappedEntity.setPassword(passwordEncoder.encode(mappedEntity.getPassword()));
-        mappedEntity.getTags().forEach(tagRepository::saveByNameIfNotExist);
+        mappedEntity.getTags().forEach(t -> tagRepository.saveByNameIfNotExist(t.getName()));
         return userMapper.toDto(userRepository.save(mappedEntity));
     }
 
@@ -36,5 +39,10 @@ public class UserService {
 
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    public UserEntity getAuthenticated() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return (UserEntity) customUserDetailsService.loadUserByUsername(email);
     }
 }

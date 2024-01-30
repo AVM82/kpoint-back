@@ -10,6 +10,9 @@ import ua.in.kp.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("FROM UserEntity u LEFT JOIN FETCH u.roles WHERE u.email=:email")
+    Optional<UserEntity> findByEmailFetchRoles(String email);
+
+    @EntityGraph(attributePaths = {"roles", "tags", "socialNetworks"})
     Optional<UserEntity> findByEmail(String email);
 
     boolean existsByEmail(String email);

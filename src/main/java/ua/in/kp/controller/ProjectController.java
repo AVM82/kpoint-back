@@ -1,8 +1,8 @@
 package ua.in.kp.controller;
 
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.in.kp.dto.project.GetAllProjectsDto;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
 import ua.in.kp.service.ProjectService;
@@ -25,7 +26,7 @@ public class ProjectController {
 
     private final ProjectService projectService;
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<ProjectResponseDto> createProject(
             @Valid @RequestBody ProjectCreateRequestDto createdProject) {
         return new ResponseEntity<>(projectService
@@ -38,8 +39,8 @@ public class ProjectController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ProjectResponseDto>> getAllProjects(Pageable pageable) {
-        return projectService.getAllProjects(pageable);
+    public ResponseEntity<Page<GetAllProjectsDto>> getAllProjects(Pageable pageable) {
+        return new ResponseEntity<>(projectService.getAllProjects(pageable), HttpStatus.OK);
     }
     @PutMapping("/{id}")
     public ResponseEntity<ProjectResponseDto> updateProject(@PathVariable String id,

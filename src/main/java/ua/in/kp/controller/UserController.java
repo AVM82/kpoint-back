@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.in.kp.dto.user.UserCreateRequestDto;
+import ua.in.kp.dto.user.UserRegisterRequestDto;
 import ua.in.kp.dto.user.UserResponseDto;
 import ua.in.kp.service.UserService;
 
@@ -21,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateRequestDto dto) {
+    public ResponseEntity<UserResponseDto> create(@RequestBody UserRegisterRequestDto dto) {
         return ResponseEntity.ok(userService.create(dto));
     }
 

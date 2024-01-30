@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ua.in.kp.dto.user.UserCreateRequestDto;
+import ua.in.kp.dto.user.UserRegisterRequestDto;
 import ua.in.kp.dto.user.UserResponseDto;
 import ua.in.kp.entity.UserEntity;
 import ua.in.kp.mapper.UserMapper;
@@ -26,10 +26,10 @@ public class UserService {
     private final UserDetailsService customUserDetailsService;
 
     @Transactional
-    public UserResponseDto create(UserCreateRequestDto dto) {
+    public UserResponseDto create(UserRegisterRequestDto dto) {
         UserEntity mappedEntity = userMapper.toEntity(dto);
         mappedEntity.setPassword(passwordEncoder.encode(mappedEntity.getPassword()));
-        mappedEntity.getTags().forEach(tagRepository::saveByNameIfNotExist);
+        mappedEntity.getTags().forEach(t -> tagRepository.saveByNameIfNotExist(t.getName()));
         return userMapper.toDto(userRepository.save(mappedEntity));
     }
 

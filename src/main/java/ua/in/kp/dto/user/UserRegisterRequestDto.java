@@ -14,7 +14,7 @@ import ua.in.kp.validator.FieldMatch;
         field = "password",
         fieldMatch = "repeatedPassword",
         message = "{validation.constraint.passwords-dont-match.message}")
-public record UserCreateRequestDto(
+public record UserRegisterRequestDto(
         @Size(min = 2, message = "username should have at least 2 characters")
         @NotEmpty
         String username,
@@ -29,7 +29,7 @@ public record UserCreateRequestDto(
         @NotEmpty
         String lastName,
         String avatarImgUrl,
-        @Size(min = 10, max = 60)
+        @Size(max = 60)
         String description,
         @CollectionLength(min = 1, max = 10, message = "tags should be from {min} to {max}")
         Set<String> tags,

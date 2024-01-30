@@ -15,7 +15,7 @@ public interface TagMapper {
                 .collect(Collectors.toSet());
     }
 
-    default Set<String> tooStringNameSet(Set<TagEntity> tags) {
+    default Set<String> toStringNameSet(Set<TagEntity> tags) {
         return tags.stream()
                 .map(TagEntity::getName)
                 .collect(Collectors.toSet());

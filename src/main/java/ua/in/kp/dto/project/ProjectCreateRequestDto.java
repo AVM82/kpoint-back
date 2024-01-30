@@ -82,16 +82,4 @@ public class ProjectCreateRequestDto {
         return longitude != null ? longitude : 32.5;
     }
 
-    public String getLogoImgUrl() {
-        if (logoImgUrl == null) {
-            try {
-                Path imagePath = Path.of("proj.jpeg");
-                byte[] imageBytes = Files.readAllBytes(imagePath);
-                return logoImgUrl = Base64.getEncoder().encodeToString(imageBytes);
-            } catch (IOException e) {
-                log.warn("File wasn't found");
-            }
-        }
-        return logoImgUrl;
-    }
 }

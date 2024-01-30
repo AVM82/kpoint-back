@@ -10,6 +10,7 @@ import ua.in.kp.dto.project.GetAllProjectsDto;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
 import ua.in.kp.entity.ProjectEntity;
+import ua.in.kp.exception.ProjectNotFoundException;
 import ua.in.kp.mapper.ProjectMapper;
 import ua.in.kp.repository.ProjectRepository;
 import ua.in.kp.repository.TagRepository;
@@ -43,6 +44,15 @@ public class ProjectService {
         Page<GetAllProjectsDto> toReturn = page.map(projectMapper::getAllToDto);
         log.info("Map all projectsEntity to DTO and return page with them.");
         return toReturn;
+    }
+
+    public ProjectResponseDto getProjectById(String projectId) {
+        log.info("Get by id project method started");
+        ProjectEntity projectEntity = projectRepository.findById(projectId)
+                .orElseThrow(() ->
+                        new ProjectNotFoundException("Project not found with ID: " + projectId));
+        log.info("Project retrieved, id {}", projectEntity.getProjectId());
+        return projectMapper.toDto(projectEntity);
     }
 
     public ProjectResponseDto updateProject(String id, ProjectCreateRequestDto projectDto) {

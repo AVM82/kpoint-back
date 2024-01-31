@@ -2,6 +2,7 @@
 target/**
 *.iml
 logs/
+.env
 # Default ignored files
 /shelf/
 /workspace.xml

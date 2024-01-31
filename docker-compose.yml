@@ -20,7 +20,7 @@ services:
       retries: 20
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
-      DB_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
 
   kpoint-back:
     build:

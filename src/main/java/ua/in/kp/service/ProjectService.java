@@ -46,6 +46,7 @@ public class ProjectService {
         return toReturn;
     }
 
+    @Transactional
     public ProjectResponseDto getProjectById(String projectId) {
         log.info("Get by id project method started");
         ProjectEntity projectEntity = projectRepository.findById(projectId)

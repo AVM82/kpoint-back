@@ -52,7 +52,7 @@ public class ProjectEntity {
     @Column(columnDefinition = "VARCHAR(512)", nullable = false)
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<TagEntity> tags;
 
     @Lob
@@ -90,7 +90,7 @@ public class ProjectEntity {
     @Column(name = "goal_deadline")
     private LocalDate goalDeadline;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @Column(name = "networks_links")
     private Map<String, String> networksLinks;
 

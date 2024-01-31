@@ -17,6 +17,8 @@ public interface ProjectMapper {
     @Mapping(target = "owner.ownerId", source = "owner.id")
     ProjectResponseDto toDto(ProjectEntity projectEntity);
 
+    @Mapping(target = "latitude", source = "latitude", defaultValue = "49.1")
+    @Mapping(target = "longitude", source = "longitude", defaultValue = "32.5")
     ProjectEntity toEntity(ProjectCreateRequestDto projectDto);
 
     GetAllProjectsDto getAllToDto(ProjectEntity projectEntity);

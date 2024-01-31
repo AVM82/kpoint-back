@@ -32,6 +32,8 @@ public class AuthService {
                 .authenticate(
                         new UsernamePasswordAuthenticationToken(dto.email(), dto.password()));
         return new UserLoginResponseDto(
-                jwtUtil.generateToken(authentication.getName()));
+                jwtUtil.generateToken(authentication.getName()),
+                userService.getByEmailFetchTagsSocialsRoles(authentication.getName())
+        );
     }
 }

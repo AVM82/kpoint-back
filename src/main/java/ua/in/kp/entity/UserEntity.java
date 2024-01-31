@@ -32,6 +32,7 @@ import ua.in.kp.enumeration.UserRole;
 @Table(name = "users")
 @Getter
 @Setter
+
 public class UserEntity implements UserDetails {
 
     @Id

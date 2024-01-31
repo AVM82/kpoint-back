@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.in.kp.dto.user.UserRegisterRequestDto;
@@ -44,5 +45,12 @@ public class UserService {
     public UserEntity getAuthenticated() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return (UserEntity) customUserDetailsService.loadUserByUsername(email);
+    }
+
+    public UserResponseDto getByEmailFetchTagsSocialsRoles(String email) {
+        UserEntity userFromDb = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("Can't find user by email " + email));
+        return userMapper.toDto(userFromDb);
     }
 }

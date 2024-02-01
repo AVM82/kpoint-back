@@ -4,11 +4,13 @@ import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.MapKeyEnumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -30,6 +32,7 @@ import ua.in.kp.enumeration.UserRole;
 @Table(name = "users")
 @Getter
 @Setter
+
 public class UserEntity implements UserDetails {
 
     @Id
@@ -58,8 +61,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "description", columnDefinition = "VARCHAR(512)")
     private String description;
 
-    @Column(name = "tags", columnDefinition = "VARCHAR(10)[]", nullable = false)
-    private Set<String> tags;
+    @ManyToMany
+    private Set<TagEntity> tags;
 
     @ElementCollection
     @CollectionTable(name = "user_socials", joinColumns = @JoinColumn(name = "user_id"))
@@ -69,7 +72,7 @@ public class UserEntity implements UserDetails {
 
     @ElementCollection
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "owner")
@@ -100,5 +103,9 @@ public class UserEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getUsername() {
+        return email;
     }
 }

@@ -1,12 +1,12 @@
 package ua.in.kp.service;
 
 import jakarta.transaction.Transactional;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ua.in.kp.dto.project.GetAllProjectsDto;
 import ua.in.kp.dto.project.ProjectCreateRequestDto;
 import ua.in.kp.dto.project.ProjectResponseDto;
 import ua.in.kp.entity.ProjectEntity;
@@ -38,14 +38,18 @@ public class ProjectService {
         return projectMapper.toDto(projectEntity);
     }
 
-    public List<ProjectResponseDto> getAllProjects(Pageable pageable) {
+    public Page<GetAllProjectsDto> getAllProjects(Pageable pageable) {
         Page<ProjectEntity> page = projectRepository.findAll(pageable);
-        return page.map(projectMapper::toDto).getContent();
+        log.info("Got all projects from projectRepository.");
+        Page<GetAllProjectsDto> toReturn = page.map(projectMapper::getAllToDto);
+        log.info("Map all projectsEntity to DTO and return page with them.");
+        return toReturn;
     }
 
+    @Transactional
     public ProjectResponseDto getProjectById(String projectId) {
         log.info("Get by id project method started");
-        ProjectEntity projectEntity = projectRepository.findById(projectId)
+        ProjectEntity projectEntity = projectRepository.findBy(projectId)
                 .orElseThrow(() ->
                         new ProjectNotFoundException("Project not found with ID: " + projectId));
         log.info("Project retrieved, id {}", projectEntity.getProjectId());

@@ -13,6 +13,7 @@ import ua.in.kp.dto.user.UserRegisterRequestDto;
 import ua.in.kp.dto.user.UserResponseDto;
 import ua.in.kp.entity.UserEntity;
 import ua.in.kp.mapper.UserMapper;
+import ua.in.kp.repository.ApplicantRepository;
 import ua.in.kp.repository.TagRepository;
 import ua.in.kp.repository.UserRepository;
 
@@ -25,13 +26,20 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService customUserDetailsService;
+    private final ApplicantRepository applicantRepository;
 
     @Transactional
     public UserResponseDto create(UserRegisterRequestDto dto) {
         UserEntity mappedEntity = userMapper.toEntity(dto);
         mappedEntity.setPassword(passwordEncoder.encode(mappedEntity.getPassword()));
         mappedEntity.getTags().forEach(t -> tagRepository.saveByNameIfNotExist(t.getName()));
+        applicantRepository.findByEmail(dto.email())
+                .ifPresent(a -> {
+                    mappedEntity.setAvatarImgUrl(a.getAvatarImgUrl());
+                    applicantRepository.delete(a);
+                });
         return userMapper.toDto(userRepository.save(mappedEntity));
+
     }
 
     public List<UserResponseDto> getAll(Pageable pageable) {

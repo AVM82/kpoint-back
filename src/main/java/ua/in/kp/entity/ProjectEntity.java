@@ -10,7 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -52,10 +51,9 @@ public class ProjectEntity {
     @Column(columnDefinition = "VARCHAR(512)", nullable = false)
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<TagEntity> tags;
 
-    @Lob
     @Column(name = "logo_img_url", columnDefinition = "TEXT")
     private String logoImgUrl;
 
@@ -90,7 +88,7 @@ public class ProjectEntity {
     @Column(name = "goal_deadline")
     private LocalDate goalDeadline;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @Column(name = "networks_links")
     private Map<String, String> networksLinks;
 

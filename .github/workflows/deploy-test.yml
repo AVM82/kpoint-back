@@ -19,10 +19,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Extract project version
-        id: extract_version
-        run: echo ::set-output name=version::$(xmllint --xpath "string(/project/version)" pom.xml)
-
       - name: Build with Maven
         run: mvn clean package
 
@@ -36,6 +32,6 @@ jobs:
           application_name: 'Kpoint'
           environment_name: 'Kpoint-test'
           version_label: 'v${{ github.sha }}'
-          deployment_package: "target/kp-${{ steps.extract_version.outputs.version }}.jar"
+          deployment_package: 'target/kp-${project.version}.jar'
           wait_for_deployment: true
           wait_for_environment_recovery: true

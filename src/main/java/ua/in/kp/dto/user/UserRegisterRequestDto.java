@@ -3,11 +3,12 @@ package ua.in.kp.dto.user;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import java.util.Map;
-import java.util.Set;
 import ua.in.kp.enumeration.SocialNetworkName;
 import ua.in.kp.validator.CollectionLength;
 import ua.in.kp.validator.FieldMatch;
+
+import java.util.Map;
+import java.util.Set;
 
 @FieldMatch(
         field = "password",

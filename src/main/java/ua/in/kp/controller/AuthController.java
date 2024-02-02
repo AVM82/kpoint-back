@@ -1,7 +1,6 @@
 package ua.in.kp.controller;
 
 import jakarta.validation.Valid;
-import javax.naming.AuthenticationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,8 @@ import ua.in.kp.dto.user.UserRegisterRequestDto;
 import ua.in.kp.dto.user.UserResponseDto;
 import ua.in.kp.security.OAuth2Service;
 import ua.in.kp.service.AuthService;
+
+import javax.naming.AuthenticationException;
 
 @RestController
 @RequestMapping("/api/auth")

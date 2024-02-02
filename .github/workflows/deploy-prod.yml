@@ -36,6 +36,6 @@ jobs:
           application_name: 'kPoints-prod'
           environment_name: 'kPoints-prod-env'
           version_label: 'v${{ github.sha }}'
-          deployment_package: "target/kp-${{ steps.extract_version.outputs.version }}.jar"
+          deployment_package: 'target/kp-${project.version}.jar'
           wait_for_deployment: true
           wait_for_environment_recovery: true

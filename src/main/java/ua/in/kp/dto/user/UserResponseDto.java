@@ -1,9 +1,10 @@
 package ua.in.kp.dto.user;
 
-import java.util.Map;
-import java.util.Set;
 import ua.in.kp.enumeration.SocialNetworkName;
 import ua.in.kp.enumeration.UserRole;
+
+import java.util.Map;
+import java.util.Set;
 
 public record UserResponseDto(
         String id,

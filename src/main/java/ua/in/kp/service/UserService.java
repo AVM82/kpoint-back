@@ -1,7 +1,6 @@
 package ua.in.kp.service;
 
 import jakarta.transaction.Transactional;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +15,8 @@ import ua.in.kp.mapper.UserMapper;
 import ua.in.kp.repository.ApplicantRepository;
 import ua.in.kp.repository.TagRepository;
 import ua.in.kp.repository.UserRepository;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

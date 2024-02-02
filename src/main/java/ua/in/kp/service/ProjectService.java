@@ -49,7 +49,7 @@ public class ProjectService {
     @Transactional
     public ProjectResponseDto getProjectById(String projectId) {
         log.info("Get by id project method started");
-        ProjectEntity projectEntity = projectRepository.findById(projectId)
+        ProjectEntity projectEntity = projectRepository.findBy(projectId)
                 .orElseThrow(() ->
                         new ProjectNotFoundException("Project not found with ID: " + projectId));
         log.info("Project retrieved, id {}", projectEntity.getProjectId());

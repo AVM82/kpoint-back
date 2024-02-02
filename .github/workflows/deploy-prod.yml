@@ -19,10 +19,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Extract project version
-        id: extract_version
-        run: echo ::set-output name=version::$(xmllint --xpath "string(/project/version)" pom.xml)
-
       - name: Build with Maven
         run: mvn clean package
 

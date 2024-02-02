@@ -1,7 +1,8 @@
 package ua.in.kp.dto.project;
 
-import java.util.Set;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public class GetAllProjectsDto {

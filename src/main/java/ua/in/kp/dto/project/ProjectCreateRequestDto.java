@@ -1,20 +1,14 @@
 package ua.in.kp.dto.project;
 
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
-import java.util.Map;
-import java.util.Set;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import ua.in.kp.enumeration.SocialNetworkName;
 import ua.in.kp.validator.CollectionLength;
+
+import java.util.Map;
+import java.util.Set;
 
 @Data
 @Slf4j

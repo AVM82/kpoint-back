@@ -1,8 +1,9 @@
 package ua.in.kp.dto.project;
 
+import lombok.Data;
+
 import java.util.Map;
 import java.util.Set;
-import lombok.Data;
 
 @Data
 public class ProjectResponseDto {

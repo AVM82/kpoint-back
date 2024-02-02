@@ -32,6 +32,6 @@ jobs:
           application_name: 'Kpoint'
           environment_name: 'Kpoint-test'
           version_label: 'v${{ github.sha }}'
-          deployment_package: 'target/kp-0.0.2.jar'
+          deployment_package: 'target/kp-*.jar'
           wait_for_deployment: true
           wait_for_environment_recovery: true

@@ -22,6 +22,10 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
+      - name: Find JAR file
+        id: find-jar
+        run: echo "::set-output name=jar_file::$(find target -name '*.jar' -type f)"
+
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v17
         with:
@@ -32,6 +36,6 @@ jobs:
           application_name: 'Kpoint'
           environment_name: 'Kpoint-test'
           version_label: 'v${{ github.sha }}'
-          deployment_package: 'target/kp-${project.version}.jar'
+          deployment_package: ${{ steps.find-jar.outputs.jar_file }}
           wait_for_deployment: true
           wait_for_environment_recovery: true

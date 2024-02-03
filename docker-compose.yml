@@ -59,10 +59,12 @@ services:
       context: ./../kpoint-react
       dockerfile: Dockerfile.prod
       args:
-        REACT_APP_API_PATH: http://localhost:${SERVER_PORT}/api
+        REACT_APP_API_PATH: ${BACK_API_PATH}
+        REACT_APP_OAUTH2_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+
     container_name: kpoint-react
     depends_on:
       kpoint-back:
         condition: service_healthy
     ports:
-      - 82:${HTTP_PORT}
+      - ${HTTP_PORT}:${HTTP_PORT}

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ua.in.kp.enumeration.SocialNetworkName;
 import ua.in.kp.validator.CollectionLength;
+import ua.in.kp.validator.FutureDate;
 
 import java.util.Map;
 import java.util.Set;
@@ -55,14 +56,16 @@ public class ProjectCreateRequestDto {
     private int startSum;
 
     @NotNull(message = "{project.collectDeadline.not.null}")
+    @FutureDate
     private String collectDeadline;
 
     @PositiveOrZero
     private int goalSum;
 
     @NotNull(message = "{project.goalDeadline.not.null}")
+    @FutureDate
     private String goalDeadline;
 
-    @NotNull
+    @NotEmpty
     private Map<SocialNetworkName, String> networksLinks;
 }

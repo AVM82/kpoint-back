@@ -7,12 +7,14 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import ua.in.kp.enumeration.ProjectState;
+import ua.in.kp.enumeration.SocialNetworkName;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Map;
 import java.util.Set;
+import java.util.EnumMap;
 
 @Entity
 @Data
@@ -59,26 +61,27 @@ public class ProjectEntity {
     @Enumerated(EnumType.STRING)
     private ProjectState state = ProjectState.NEW;
 
-    @Column(name = "owner_sum")
+    @Column(name = "owner_sum", columnDefinition = "INT DEFAULT 0")
     private int ownerSum;
 
     @Column(name = "collected_sum", columnDefinition = "INT DEFAULT 0")
     private int collectedSum;
 
-    @Column(name = "start_sum")
+    @Column(name = "start_sum", columnDefinition = "INT DEFAULT 0")
     private int startSum;
 
-    @Column(name = "collect_deadline")
+    @Column(name = "collect_deadline", nullable = false)
     private LocalDate collectDeadline;
 
-    @Column(name = "goal_sum")
+    @Column(name = "goal_sum", columnDefinition = "INT DEFAULT 0")
     private int goalSum;
 
-    @Column(name = "goal_deadline")
+    @Column(name = "goal_deadline", nullable = false)
     private LocalDate goalDeadline;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @Column(name = "networks_links")
-    private Map<String, String> networksLinks;
+    @MapKeyEnumerated
+    @Column(name = "networks")
+    private Map<SocialNetworkName, String> networksLinks = new EnumMap<>(SocialNetworkName.class);
 
 }

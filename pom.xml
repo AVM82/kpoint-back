@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ua.in</groupId>
 	<artifactId>kp</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>kp</name>
 	<description>Project of projects</description>
 	<properties>
@@ -66,6 +66,13 @@
 			<artifactId>jjwt</artifactId>
 			<version>${jjwt.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

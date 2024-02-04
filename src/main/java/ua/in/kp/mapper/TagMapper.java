@@ -1,10 +1,11 @@
 package ua.in.kp.mapper;
 
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import ua.in.kp.config.MapperConfig;
 import ua.in.kp.entity.TagEntity;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Mapper(config = MapperConfig.class)
 public interface TagMapper {

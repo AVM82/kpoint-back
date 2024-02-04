@@ -20,7 +20,7 @@ public class ProjectResponseDto {
 
     private Set<String> tags;
 
-    private String logoImgUrl;
+    private String logoBase64;
 
     private double latitude;
 
@@ -42,5 +42,5 @@ public class ProjectResponseDto {
 
     private String goalDeadline;
 
-    private Map<String, String> networksLinks;
+    private Map<String, String> socialNetworks;
 }

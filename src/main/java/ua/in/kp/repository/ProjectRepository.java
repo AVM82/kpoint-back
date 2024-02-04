@@ -11,10 +11,10 @@ import java.util.Optional;
 public interface ProjectRepository extends JpaRepository<ProjectEntity, String> {
 
     @Query("FROM ProjectEntity p LEFT JOIN FETCH p.tags "
-            + "LEFT JOIN FETCH p.networksLinks WHERE p.projectId=:id")
+            + "LEFT JOIN FETCH p.socialNetworks WHERE p.projectId=:id")
     Optional<ProjectEntity> findBy(String id);
 
     @Query("FROM ProjectEntity p LEFT JOIN FETCH p.tags "
-            + "LEFT JOIN FETCH p.networksLinks")
+            + "LEFT JOIN FETCH p.socialNetworks")
     Page<ProjectEntity> findAll(Pageable pageable);
 }

@@ -45,8 +45,8 @@ public class ProjectEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<TagEntity> tags;
 
-    @Column(name = "logo_img_url", columnDefinition = "TEXT")
-    private String logoImgUrl;
+    @Column(name = "logo_base64", columnDefinition = "TEXT")
+    private String logoBase64;
 
     @Column(columnDefinition = "DECIMAL(5,1)")
     private double latitude = 49.1;
@@ -81,7 +81,7 @@ public class ProjectEntity {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @MapKeyEnumerated
-    @Column(name = "networks")
-    private Map<SocialNetworkName, String> networksLinks = new EnumMap<>(SocialNetworkName.class);
+    @Column(name = "project_socials")
+    private Map<SocialNetworkName, String> socialNetworks = new EnumMap<>(SocialNetworkName.class);
 
 }

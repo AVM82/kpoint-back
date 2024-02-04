@@ -34,7 +34,7 @@ public class ProjectCreateRequestDto {
     @CollectionLength(min = 1, max = 5, message = "{project.tag.not.null}")
     private Set<String> tags;
 
-    private String logoImgUrl;
+    private String logoBase64;
 
     @DecimalMin(value = "-90.0", message = "{project.latitude.size}")
     @DecimalMax(value = "90.0", message = "{project.latitude.size}")
@@ -67,5 +67,5 @@ public class ProjectCreateRequestDto {
     private String goalDeadline;
 
     @NotEmpty
-    private Map<SocialNetworkName, String> networksLinks;
+    private Map<SocialNetworkName, String> socialNetworks;
 }

@@ -3,6 +3,7 @@ package ua.in.kp.dto.project;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ua.in.kp.enumeration.SocialNetworkName;
 import ua.in.kp.validator.CollectionLength;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Data
 @Slf4j
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProjectCreateRequestDto {
 
     @NotBlank

@@ -22,6 +22,8 @@ public class SpaWebFilter extends OncePerRequestFilter {
         log.info("SpaWebFilter path: " + path);
 
         if (!path.equals("/")
+                && !path.startsWith("/swagger-ui")
+                && !path.startsWith("/v3/api-docs")
                 && !path.startsWith("/api")
                 && !path.startsWith("/static")
                 && !path.startsWith("/manifest.json")

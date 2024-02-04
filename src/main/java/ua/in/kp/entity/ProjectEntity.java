@@ -83,5 +83,4 @@ public class ProjectEntity {
     @MapKeyEnumerated
     @Column(name = "project_socials")
     private Map<SocialNetworkName, String> socialNetworks = new EnumMap<>(SocialNetworkName.class);
-
 }
